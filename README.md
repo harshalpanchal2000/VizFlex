@@ -1,7 +1,5 @@
 # VizFlex: Your Ultimate Data Visualization Tool
 
-![VizFlex Logo](https://your-logo-url.com)
-
 VizFlex is an intuitive and interactive data visualization tool built using Streamlit. It allows users to effortlessly upload their CSV files and create insightful visualizations. With VizFlex, you can generate scatterplots, histograms, line plots, box plots, and correlation heatmaps to gain valuable insights from your data.
 
 ## Features
