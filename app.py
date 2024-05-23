@@ -5,7 +5,7 @@ import seaborn as sns
 
 # Page configuration
 st.set_page_config(
-    page_title="VizFlex: Your Ultimate Data Visualization Tool",
+    page_title="VizFlex",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -39,28 +39,30 @@ if uploaded_file is not None:
         x_axis = st.sidebar.selectbox('Select X-axis', numerical_columns + categorical_columns if plot_type != 'Box Plot' else categorical_columns)
         y_axis = st.sidebar.selectbox('Select Y-axis', numerical_columns)
         
-        # Create plots based on user selection
-        st.subheader('Visualization')
-        if plot_type == 'Scatterplot':
-            fig, ax = plt.subplots()
-            sns.scatterplot(x=data[x_axis], y=data[y_axis], ax=ax)
-            st.pyplot(fig)
-        elif plot_type == 'Histogram':
-            fig, ax = plt.subplots()
-            sns.histplot(data[x_axis], kde=True, ax=ax)
-            st.pyplot(fig)
-        elif plot_type == 'Line Plot':
-            fig, ax = plt.subplots()
-            sns.lineplot(x=data[x_axis], y=data[y_axis], ax=ax)
-            st.pyplot(fig)
-        elif plot_type == 'Box Plot':
-            fig, ax = plt.subplots()
-            sns.boxplot(x=data[x_axis] if x_axis in categorical_columns else None, y=data[y_axis], ax=ax)
-            st.pyplot(fig)
-        elif plot_type == 'Bar Plot':
-            fig, ax = plt.subplots()
-            sns.barplot(x=data[x_axis], y=data[y_axis], ax=ax)
-            st.pyplot(fig)
+        # Button to generate plot
+        if st.sidebar.button('Show Visualization'):
+            # Create plots based on user selection
+            st.subheader('Visualization')
+            if plot_type == 'Scatterplot':
+                fig, ax = plt.subplots()
+                sns.scatterplot(x=data[x_axis], y=data[y_axis], ax=ax)
+                st.pyplot(fig)
+            elif plot_type == 'Histogram':
+                fig, ax = plt.subplots()
+                sns.histplot(data[x_axis], kde=True, ax=ax)
+                st.pyplot(fig)
+            elif plot_type == 'Line Plot':
+                fig, ax = plt.subplots()
+                sns.lineplot(x=data[x_axis], y=data[y_axis], ax=ax)
+                st.pyplot(fig)
+            elif plot_type == 'Box Plot':
+                fig, ax = plt.subplots()
+                sns.boxplot(x=data[x_axis] if x_axis in categorical_columns else None, y=data[y_axis], ax=ax)
+                st.pyplot(fig)
+            elif plot_type == 'Bar Plot':
+                fig, ax = plt.subplots()
+                sns.barplot(x=data[x_axis], y=data[y_axis], ax=ax)
+                st.pyplot(fig)
     else:
         st.write("The uploaded dataset does not contain any numerical columns. Please upload a dataset with numerical data.")
 else:
