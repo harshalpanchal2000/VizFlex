@@ -5,26 +5,10 @@ import seaborn as sns
 
 # Page configuration
 st.set_page_config(
-    page_title="VizFlex",
+    page_title="VizFlex: Your Ultimate Data Visualization Tool",
     page_icon="📊",
     layout="wide",
     initial_sidebar_state="expanded"
-)
-
-# Custom CSS for background
-st.markdown(
-    """
-    <style>
-    body {
-        background-color: #e5e5f7;
-        opacity: 0.8;
-        background-image: radial-gradient(#444cf7 0.5px, transparent 0.5px), radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
-        background-size: 20px 20px;
-        background-position: 0 0, 10px 10px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
 )
 
 # App title and description
