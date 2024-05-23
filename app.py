@@ -7,6 +7,7 @@ import seaborn as sns
 st.set_page_config(
     page_title="VizFlex: Your Ultimate Data Visualization Tool",
     page_icon="📊",
+    layout ="wide",
     initial_sidebar_state="expanded"
 )
 
