@@ -11,6 +11,22 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+# Custom CSS for background
+st.markdown(
+    """
+    <style>
+    body {
+        background-color: #e5e5f7;
+        opacity: 0.8;
+        background-image: radial-gradient(#444cf7 0.5px, transparent 0.5px), radial-gradient(#444cf7 0.5px, #e5e5f7 0.5px);
+        background-size: 20px 20px;
+        background-position: 0 0, 10px 10px;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)
+
 # App title and description
 st.title('VizFlex: Your Ultimate Data Visualization Tool')
 st.subheader('Effortlessly visualize your data with intuitive and interactive plots.')
@@ -33,11 +49,12 @@ if uploaded_file is not None:
     if len(numerical_columns) > 0:
         # Sidebar options for visualizations
         st.sidebar.header('Visualization Settings')
-        plot_type = st.sidebar.selectbox('Select plot type', ['Scatterplot', 'Histogram', 'Line Plot', 'Box Plot', 'Bar Plot'])
+        plot_type = st.sidebar.selectbox('Select plot type', ['Scatterplot', 'Histogram', 'Line Plot', 'Box Plot', 'Correlation Heatmap'])
         
         st.sidebar.markdown('---')
-        x_axis = st.sidebar.selectbox('Select X-axis', numerical_columns + categorical_columns if plot_type != 'Box Plot' else categorical_columns)
-        y_axis = st.sidebar.selectbox('Select Y-axis', numerical_columns)
+        if plot_type != 'Correlation Heatmap':
+            x_axis = st.sidebar.selectbox('Select X-axis', numerical_columns + categorical_columns if plot_type != 'Box Plot' else categorical_columns)
+            y_axis = st.sidebar.selectbox('Select Y-axis', numerical_columns)
         
         # Button to generate plot
         if st.sidebar.button('Show Visualization'):
@@ -59,9 +76,10 @@ if uploaded_file is not None:
                 fig, ax = plt.subplots()
                 sns.boxplot(x=data[x_axis] if x_axis in categorical_columns else None, y=data[y_axis], ax=ax)
                 st.pyplot(fig)
-            elif plot_type == 'Bar Plot':
+            elif plot_type == 'Correlation Heatmap':
+                corr = data[numerical_columns].corr()
                 fig, ax = plt.subplots()
-                sns.barplot(x=data[x_axis], y=data[y_axis], ax=ax)
+                sns.heatmap(corr, annot=True, cmap='coolwarm', ax=ax)
                 st.pyplot(fig)
     else:
         st.write("The uploaded dataset does not contain any numerical columns. Please upload a dataset with numerical data.")
